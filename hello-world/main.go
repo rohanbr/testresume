@@ -5,9 +5,12 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"encoding/json"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/testresumeguru/repository"
+	"github.com/testresumeguru/models"
 )
 
 var (
@@ -32,7 +35,13 @@ func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 	}
 
 	ip, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
+
+	var personalInfo models.PersonalInfo
+	err = json.Unmarshal([]byte(request.Body), &personalInfo)
+
+	personalInfoRepo := repository.NewPersonalInfoRepo()
+	succes := personalInfoRepo.Create(personalInfo)
+	if succes == false {
 		return events.APIGatewayProxyResponse{}, err
 	}
 
