@@ -23,6 +23,8 @@ Resources:
         CatchAll:
           Type: Api
           Properties:
+            RestApiId:
+              Ref: MyApi
             Path: /hello
             Method: GET
       Environment:
@@ -34,6 +36,16 @@ Resources:
       DockerTag: go1.x-v1
       Dockerfile: Dockerfile
       SamResourceId: HelloWorldFunction
+  MyApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors: '''*'''
+      Auth:
+        DefaultAuthorizer: MyCognitoAuthorizer
+        Authorizers:
+          MyCognitoAuthorizer:
+            UserPoolArn: arn:aws:cognito-idp:us-east-1:591415766974:userpool/us-east-1_dcxULfsOh
   ApplicationResourceGroup:
     Type: AWS::ResourceGroups::Group
     Properties:
@@ -55,10 +67,6 @@ Resources:
       AutoConfigurationEnabled: 'true'
     DependsOn: ApplicationResourceGroup
 Outputs:
-  HelloWorldAPI:
-    Description: API Gateway endpoint URL for Prod environment for First Function
-    Value:
-      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/
   HelloWorldFunction:
     Description: First Lambda Function ARN
     Value:
