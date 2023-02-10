@@ -9,8 +9,8 @@ import (
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
-	"github.com/testresumeguru/repository"
-	"github.com/testresumeguru/models"
+	"github.com/rohanbr/testresume/repository"
+	"github.com/rohanbr/testresume/models"
 )
 
 var (

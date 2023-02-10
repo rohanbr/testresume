@@ -1,4 +1,4 @@
-module github.com/testresumeguru
+module github.com/rohanbr/testresume
 
 go 1.13
 

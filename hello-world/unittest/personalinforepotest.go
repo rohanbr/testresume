@@ -3,8 +3,8 @@ package repository
 import (
 	"testing"
 
-	"github.com/testresumeguru/models"
-	"github.com/testresumeguru/repository"
+	"github.com/rohanbr/testresume/models"
+	"github.com/rohanbr/testresume/repository"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbiface"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 )
